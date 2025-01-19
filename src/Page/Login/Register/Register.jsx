@@ -27,6 +27,7 @@ const Register = () => {
     confirmPassword: "",
   });
 
+  console.log("data check",formData);
   const [upazilas, setUpazilas] = useState([]);
 
   useEffect(() => {
@@ -107,9 +108,17 @@ const Register = () => {
             const userInfo = {
               name: formData.name,
               email: formData.email,
+              district: formData.district,
+              upazila: formData.upazila,
+              bloodGroup: formData.bloodGroup,
+              avatar: avatarPreview,
+              password: formData.password,
             };
+
+            console.log("User Info:", userInfo);
             axiosPublic.post("/register", userInfo).then((res) => {
-              if (res.data.insertedId) {
+              console.log("User added to the database", res);  
+              if (res.data.userId) {
                 console.log("User added to the database");
                 reset();
                 Swal.fire({

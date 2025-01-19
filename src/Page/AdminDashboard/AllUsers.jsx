@@ -7,6 +7,7 @@ const AllUsers = () => {
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  console.log("users",users);
 
   useEffect(() => {
     fetchUsers();
@@ -17,7 +18,7 @@ const AllUsers = () => {
       const { data } = await axios.get("http://localhost:5000/users", {
         params: { status: filter, page, limit: 10 },
       });
-      setUsers(data.users);
+      setUsers(data);
       setTotalPages(data.totalPages);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -68,7 +69,7 @@ const AllUsers = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users?.map((user) => (
             <tr key={user._id} className="border-t">
               <td>
                 <img src={user.avatar} alt="Avatar" className="w-10 h-10 rounded-full" />

@@ -1,7 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-// import { useAuth } from '../hooks/useAuth'; // Assuming a custom hook for user authentication
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +6,11 @@ import axios from "axios";
 
 const CreateDonation = () => {
     const { user } = useAuth();
+    console.log("user",user);
+    const [userInfo, setUserInfo] = useState([]);
+    console.log("userInfo",userInfo);
     const navigate = useNavigate();
+    const [districts, setDistricts] = useState([]);
 
     const [formData, setFormData] = useState({
         recipientName: '',
@@ -23,6 +23,21 @@ const CreateDonation = () => {
         donationTime: '',
         requestMessage: ''
     });
+
+      // Fetch Districts Data
+  useEffect(() => {
+    fetch("/districts.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setDistricts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching districts:", err);
+        setError("Failed to load districts.");
+        setLoading(false);
+      });
+  }, []);
 
     useEffect(() => {
         if (user?.status === 'blocked') {
@@ -38,6 +53,26 @@ const CreateDonation = () => {
             [name]: value
         });
     };
+
+    // i want to fetch api for user data with use effect
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/user/${user?.email}`);
+                console.log("response",response);
+                setUserInfo(response.data.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+      
+        fetchUserData()
+    },[user])
+
+
+
+
+                
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -76,11 +111,11 @@ const CreateDonation = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="block font-medium">Requester Name</label>
-                    <input type="text" value={user?.name || ''} readOnly className="input input-bordered w-full" />
+                    <input type="text" value={userInfo?.name || ''} readOnly className="input input-bordered w-full" />
                 </div>
                 <div>
                     <label className="block font-medium">Requester Email</label>
-                    <input type="email" value={user?.email || ''} readOnly className="input input-bordered w-full" />
+                    <input type="email" value={userInfo?.email || ''} readOnly className="input input-bordered w-full" />
                 </div>
                 <div>
                     <label className="block font-medium">Recipient Name</label>
@@ -88,15 +123,28 @@ const CreateDonation = () => {
                 </div>
                 <div>
                     <label className="block font-medium">Recipient District</label>
-                    <select name="recipientDistrict" value={formData.recipientDistrict} onChange={handleChange} className="select select-bordered w-full" required>
-                        <option value="">Select District</option>
-                        {/* Add district options here */}
+                    <select 
+                    name="recipientDistrict" 
+                    value={formData.recipientDistrict}
+                     onChange={handleChange} 
+                     className="select select-bordered w-full"
+                      required>
+
+                        <option value="" disabled>
+              Select District
+            </option>
+            {districts.map((district) => (
+              <option key={district.id} value={district.name}>
+                {district.name}
+              </option>
+            ))}
                     </select>
                 </div>
                 <div>
                     <label className="block font-medium">Recipient Upazila</label>
                     <select name="recipientUpazila" value={formData.recipientUpazila} onChange={handleChange} className="select select-bordered w-full" required>
                         <option value="">Select Upazila</option>
+                        <option value="Dhaka">Dhaka</option>
                         {/* Add upazila options here */}
                     </select>
                 </div>

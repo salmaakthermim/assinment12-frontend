@@ -1,9 +1,20 @@
 import React, { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { useAuth } from "../Provider/AuthProvider";
+import { useEffect } from "react";
+import useAdmin from "../hook/UseAdmin";
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
+  console.log("userInfo",userInfo);
+  // const { user } = useAuth();
+  // // const [isAdmin] = useAdmin();
+  //   console.log("isAdmin",isAdmin);
+  // console.log("fetchUser",fetchUser);
+      // i want to fetch api for user data with use effect
+
 
   return (
     <div className="flex h-screen">
