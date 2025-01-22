@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../Provider/AuthProvider';
 
@@ -7,6 +7,7 @@ const DashboardHome = () => {
 
   const {user} = useAuth();
 console.log("user fffe", user)
+
   const [donationRequests, setDonationRequests] = useState([]);
   const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ console.log("user fffe", user)
     const fetchRecentRequests = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/dashboard/recent-donation-requests?email=${user.email}`
+          `http://localhost:5000/recent-donation-requests?email=${user?.email}`
         );
         setDonationRequests(response.data);
       } catch (error) {
@@ -97,9 +98,10 @@ console.log("user fffe", user)
                         </button>
                       </>
                     )}
+                    <div className='flex gap-2'>
                     <button
                       className="btn btn-sm btn-warning"
-                      onClick={() => navigate(`/donation-requests/edit/${request._id}`)}
+                      onClick={() => navigate(`/dashboard/donation-requests-edit/${request._id}`)}
                     >
                       Edit
                     </button>
@@ -115,6 +117,7 @@ console.log("user fffe", user)
                     >
                       View
                     </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -127,12 +130,12 @@ console.log("user fffe", user)
         <p className="text-gray-500">You have no recent donation requests.</p>
       )}
 
-      <button
+      <Link
         className="btn btn-primary mt-4"
-        onClick={() => navigate('my-donation-requests')}
+        to='/dashboard/my-donation-requests'
       >
         View My All Requests
-      </button>
+      </Link>
     </div>
   );
 };

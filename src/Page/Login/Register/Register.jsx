@@ -9,6 +9,7 @@ const Register = () => {
   const { register, reset, formState: { errors } } = useForm();
 
   const [districts, setDistricts] = useState([]);
+  const [upazilas, setUpazilas] = useState([]);
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
   const [avatarPreview, setAvatarPreview] = useState(null);
   const { createUser, updatUserProfile } = useContext(AuthContext);
@@ -28,7 +29,6 @@ const Register = () => {
   });
 
   console.log("data check",formData);
-  const [upazilas, setUpazilas] = useState([]);
 
   useEffect(() => {
     fetch("/upazilas.json")

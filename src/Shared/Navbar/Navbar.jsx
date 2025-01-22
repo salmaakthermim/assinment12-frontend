@@ -61,12 +61,8 @@ const Navbar = () => {
                   onClick={() => setDropdownOpen(!isDropdownOpen)} // Toggle dropdown
                   className="flex items-center space-x-2 focus:outline-none"
                 >
-                  <img
-                    src={user.photoURL || "https://via.placeholder.com/40"} // User avatar or fallback image
-                    alt="User Avatar"
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <span className="text-gray-800">{user.displayName || "User"}</span>
+                 <button>LogOut</button>
+                 
                 </button>
 
                 {/* Dropdown Menu */}

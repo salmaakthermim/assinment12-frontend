@@ -1,20 +1,15 @@
 import React, { useState } from "react";
-import { FaHome } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { useAuth } from "../Provider/AuthProvider";
-import { useEffect } from "react";
-import useAdmin from "../hook/UseAdmin";
+
+
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState([]);
-  console.log("userInfo",userInfo);
-  // const { user } = useAuth();
-  // // const [isAdmin] = useAdmin();
-  //   console.log("isAdmin",isAdmin);
-  // console.log("fetchUser",fetchUser);
-      // i want to fetch api for user data with use effect
+ 
 
+
+
+  
 
   return (
     <div className="flex h-screen">
@@ -54,6 +49,11 @@ const Dashboard = () => {
                 All Users
               </Link>
             </li>
+
+
+            <div className='divider '></div>
+            <li className="block py-2 px-4 rounded hover:bg-red-400"><NavLink to="/">  HOME</NavLink></li>
+
             <li>
               <Link
                 to="profile"
@@ -63,8 +63,6 @@ const Dashboard = () => {
               </Link>
             </li>
 
-            <div className='divider '></div>
-            <li className="block py-2 px-4 rounded hover:bg-red-400"><NavLink to="/">  HOME</NavLink></li>
             {/* Add more links as needed */}
           </ul>
         </nav>

@@ -1,24 +1,22 @@
 
-import axios from "axios";
 import { useAuth } from "../Provider/AuthProvider";
+import useAxiosSecure from "./useAxiosSecure";
+// import useAuth from "./useAuth";
+import { useQuery } from "@tanstack/react-query";
+
 
 const useAdmin = () => {
-  const { user } = useAuth();
-
-  // Define the fetcher function
-  const fetchUser = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5000/user/${user?.email}`);
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching admin status:", error);
-      throw new Error("Failed to fetch admin status");
-    }
-  };
-
-
-
-  return fetchUser;
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+    const { data: isAdmin, isPending: isAdminLoading } = useQuery({
+        queryKey: [user?.email, 'isAdmin'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/users/admin/${user.email}`);
+            // console.log(res.data);
+            return res.data?.admin;
+        }
+    })
+    return [isAdmin, isAdminLoading]
 };
 
 export default useAdmin;

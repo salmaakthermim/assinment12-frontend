@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Provider/AuthProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const CreateDonation = () => {
     const { user } = useAuth();
-    console.log("user",user);
+    console.log("user", user);
     const [userInfo, setUserInfo] = useState([]);
-    console.log("userInfo",userInfo);
+    console.log("userInfo", userInfo);
     const navigate = useNavigate();
     const [districts, setDistricts] = useState([]);
+    const [filteredUpazilas, setFilteredUpazilas] = useState([]);
+    const [upazilas, setUpazilas] = useState([]);
 
     const [formData, setFormData] = useState({
         recipientName: '',
@@ -23,21 +26,33 @@ const CreateDonation = () => {
         donationTime: '',
         requestMessage: ''
     });
+    // feach upzilas data
+    useEffect(() => {
+        fetch("/upazilas.json")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("Fetched upazilas:", data); 
+                setUpazilas(data);
+            })
+            .catch((err) => console.error("Error fetching upazilas:", err));
+    }, []);
 
-      // Fetch Districts Data
-  useEffect(() => {
-    fetch("/districts.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setDistricts(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching districts:", err);
-        setError("Failed to load districts.");
-        setLoading(false);
-      });
-  }, []);
+    // Fetch Districts Data
+    useEffect(() => {
+        fetch("/districts.json")
+            .then((res) => res.json())
+            .then((data) => {
+                setDistricts(data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error("Error fetching districts:", err);
+                setError("Failed to load districts.");
+                setLoading(false);
+            });
+    }, []);
+
+
 
     useEffect(() => {
         if (user?.status === 'blocked') {
@@ -51,28 +66,43 @@ const CreateDonation = () => {
         setFormData({
             ...formData,
             [name]: value
+        
         });
+        console.log('name', name,value)
+        if (name === "recipientDistrict") {
+            const selectedDistrict = districts.find((d) => d.name === value);
+            console.log("Selected District:", selectedDistrict); 
+            if (selectedDistrict) {
+                const filtered = upazilas.filter(
+                    (u) => u.district_id === selectedDistrict.id.toString()
+                );
+                console.log("Filtered Upazilas:", filtered); 
+                setFilteredUpazilas(filtered);
+            } else {
+                setFilteredUpazilas([]);
+            }
+            setFormData({ ...formData, district: value, upazila: "" });
+        }
     };
 
-    // i want to fetch api for user data with use effect
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/user/${user?.email}`);
-                console.log("response",response);
+                console.log("response", response);
                 setUserInfo(response.data.data);
             } catch (error) {
                 console.error(error);
             }
         };
-      
+
         fetchUserData()
-    },[user])
+    }, [user])
 
 
 
 
-                
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -92,18 +122,23 @@ const CreateDonation = () => {
 
         try {
             const response = await axios.post('http://localhost:5000/donation-requests', requestData, {
-              
+
             });
 
             if (response.status === 201) {
-                alert('Donation request created successfully!');
-                navigate('/dashboard');
+                Swal.fire({
+                    title: "Donation request created successfully!",
+                    icon: "success",
+                    draggable: true
+                  });
+                navigate('/dashboard-Home');
             }
         } catch (error) {
             console.error(error);
             alert('Failed to create donation request. Please try again later.');
         }
     };
+    console.log("formData-upazila", formData.recipientUpazila);
 
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md">
@@ -123,30 +158,52 @@ const CreateDonation = () => {
                 </div>
                 <div>
                     <label className="block font-medium">Recipient District</label>
-                    <select 
-                    name="recipientDistrict" 
-                    value={formData.recipientDistrict}
-                     onChange={handleChange} 
-                     className="select select-bordered w-full"
-                      required>
+                    <select
+                        name="recipientDistrict"
+                        value={formData.district}
+                        
+                        onChange={handleChange}
+                        className="select select-bordered w-full"
+                        >
 
                         <option value="" disabled>
-              Select District
-            </option>
-            {districts.map((district) => (
-              <option key={district.id} value={district.name}>
-                {district.name}
-              </option>
-            ))}
+                            Select District
+                        </option>
+                        {districts.map((district) => (
+                            <option key={district.id} value={district.name}>
+                                {district.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div>
                     <label className="block font-medium">Recipient Upazila</label>
-                    <select name="recipientUpazila" value={formData.recipientUpazila} onChange={handleChange} className="select select-bordered w-full" required>
-                        <option value="">Select Upazila</option>
-                        <option value="Dhaka">Dhaka</option>
-                        {/* Add upazila options here */}
+                    <select
+                        name="recipientUpazila"
+                        value={formData.recipientUpazila}
+                        onChange={handleChange}
+                        className="select select-bordered w-full"
+                      
+                    >
+                        <option value="" >
+                            Select Upazila
+                        </option>
+                        <option value="" >
+                        Brahmanpara
+                        </option>
+                        {filteredUpazilas.length > 0 ? (
+                            filteredUpazilas.map((upazila) => (
+                                <option key={upazila.id} value={upazila.name}>
+                                    {upazila.name}
+                                </option>
+                            ))
+                        ) : (
+                            <option value="" disabled>
+                                No Upazilas Found
+                            </option>
+                        )}
                     </select>
+
                 </div>
                 <div>
                     <label className="block font-medium">Hospital Name</label>
