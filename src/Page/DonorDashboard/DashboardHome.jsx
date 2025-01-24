@@ -113,7 +113,7 @@ console.log("user fffe", user)
                     </button>
                     <button
                       className="btn btn-sm btn-info"
-                      onClick={() => navigate(`/donation-requests/${request._id}`)}
+                      onClick={() => navigate(`/dashboard/donation-requests-details/${request._id}`)}
                     >
                       View
                     </button>

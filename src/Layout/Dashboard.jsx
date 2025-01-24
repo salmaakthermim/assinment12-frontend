@@ -1,14 +1,27 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import useUser from "../hook/useUser";
+// import useUser from "../hook/useUser";
+
+// import useUser from "../hooks/useUser";
 
 
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
  
+  const [userData, isUserDataLoading] = useUser();
 
+    if (isUserDataLoading) {
+        return <p>Loading...</p>;
+    }
 
+    if (!userData) {
+        return <p>No user data available</p>;
+    }
+console.log("test user",userData)
 
+  
   
 
   return (
@@ -19,7 +32,7 @@ const Dashboard = () => {
           } lg:translate-x-0 fixed lg:static h-full`}
       >
         <div className="p-4 text-2xl font-bold border-b hover:bg-red-400">
-          Dashboard
+          Dashboard 
         </div>
         <nav className="p-4">
           <ul>
