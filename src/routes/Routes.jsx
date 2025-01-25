@@ -19,6 +19,10 @@ import AdminRoute from "../components/AdminRoute";
 import AllBloodDonationRequest from "../Page/AdminDashboard/AllBloodDonationRequest";
 import DonorRoute from "../components/DonorRoute";
 import ContentManagement from "../Page/AdminDashboard/ContentManagement";
+import AdminDashboardHome from "../Page/AdminDashboard/AdminDashboardHome";
+import VolunteerRoute from "../components/VolunteerRoute";
+import VolunteerDashboardHome from "../Page/VolunteerDashboard/VolunteerDashboardHome";
+import VolunteerAllBloodDonationRequest from "../Page/VolunteerDashboard/volunteerAllBloodDonationRequest";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -76,6 +80,10 @@ import ContentManagement from "../Page/AdminDashboard/ContentManagement";
           element: <DonorRoute> <CreateDonation /> </DonorRoute>
         },
         {
+          path:'admin-Home',
+          element: <AdminRoute> <AdminDashboardHome />  </AdminRoute>
+        },
+        {
           path:'all-users',
           element: <AdminRoute> <AllUsers />  </AdminRoute>
         },
@@ -86,6 +94,14 @@ import ContentManagement from "../Page/AdminDashboard/ContentManagement";
         {
           path:'content-management',
           element: <AdminRoute> <ContentManagement /> </AdminRoute>
+        },
+        {
+          path:'volunteer-Home',
+          element: <VolunteerRoute> <VolunteerDashboardHome /> </VolunteerRoute>
+        },
+        {
+          path:'volunterr-all-blood-donation-request',
+          element: <VolunteerRoute> <VolunteerAllBloodDonationRequest /> </VolunteerRoute>
         },
 
         {

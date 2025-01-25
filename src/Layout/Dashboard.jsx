@@ -60,6 +60,12 @@ const Dashboard = () => {
 
               {userRole === 'admin' && (
                 <>
+                  <Link to="/dashboard/admin-Home"
+
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                   Admin Home
+                  </Link>
                   <Link to="/dashboard/all-users"
 
                     className="block py-2 px-4 rounded hover:bg-red-400"
@@ -78,6 +84,25 @@ const Dashboard = () => {
                   >
                     Content Management
                   </Link>
+                </>
+              )}
+              {userRole === 'volunteer' && (
+                <>
+                  <Link to="/dashboard/volunteer-Home"
+
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                   Volunteer Home
+                  </Link>
+                  <Link to="/dashboard/volunterr-all-blood-donation-request"
+
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                  All Blood Donation Request
+                  </Link>
+                
+                
+                
                 </>
               )}
             </li>
