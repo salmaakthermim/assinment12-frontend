@@ -15,6 +15,10 @@ import AllUsers from "../Page/AdminDashboard/AllUsers";
 import DonationRequests from "../components/DonationRequests";
 import EditDonationRequest from "../Page/DonorDashboard/EditDonationRequest";
 import DonationRequestDetails from "../Page/DonorDashboard/DonationRequestDetails";
+import AdminRoute from "../components/AdminRoute";
+import AllBloodDonationRequest from "../Page/AdminDashboard/AllBloodDonationRequest";
+import DonorRoute from "../components/DonorRoute";
+import ContentManagement from "../Page/AdminDashboard/ContentManagement";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -52,11 +56,11 @@ import DonationRequestDetails from "../Page/DonorDashboard/DonationRequestDetail
       children: [
         {
           path: 'dashboard-Home',
-          element: <DashboardHome></DashboardHome>
+          element: <DonorRoute> <DashboardHome />   </DonorRoute>  
         },
         {
           path: 'my-donation-requests',
-          element: <MyDonationRequests></MyDonationRequests>
+          element: <DonorRoute> < MyDonationRequests /> </DonorRoute>
         },
 
         {
@@ -65,15 +69,23 @@ import DonationRequestDetails from "../Page/DonorDashboard/DonationRequestDetail
         },
         {
           path: 'donation-requests-details/:id',
-          element:<DonationRequestDetails></DonationRequestDetails>
+          element:<DonorRoute> <DonationRequestDetails /> </DonorRoute>
         },
         {
           path:'Create-Donation-Request',
-          element: <CreateDonation></CreateDonation>
+          element: <DonorRoute> <CreateDonation /> </DonorRoute>
         },
         {
           path:'all-users',
-          element: <AllUsers></AllUsers>
+          element: <AdminRoute> <AllUsers />  </AdminRoute>
+        },
+        {
+          path:'all-blood-donation-requests',
+          element: <AdminRoute> <AllBloodDonationRequest />  </AdminRoute>
+        },
+        {
+          path:'content-management',
+          element: <AdminRoute> <ContentManagement /> </AdminRoute>
         },
 
         {

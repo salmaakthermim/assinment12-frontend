@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import useUser from "../hook/useUser";
+import { useAuth } from "../Provider/AuthProvider";
+import useUserRole from "../hook/useUserRole";
 // import useUser from "../hook/useUser";
 
 // import useUser from "../hooks/useUser";
@@ -9,20 +10,15 @@ import useUser from "../hook/useUser";
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
- 
-  const [userData, isUserDataLoading] = useUser();
 
-    if (isUserDataLoading) {
-        return <p>Loading...</p>;
-    }
+  const { user } = useAuth()
+  const [userRole] = useUserRole(user?.email)
 
-    if (!userData) {
-        return <p>No user data available</p>;
-    }
-console.log("test user",userData)
+  console.log(userRole)
 
-  
-  
+
+
+
 
   return (
     <div className="flex h-screen">
@@ -32,40 +28,63 @@ console.log("test user",userData)
           } lg:translate-x-0 fixed lg:static h-full`}
       >
         <div className="p-4 text-2xl font-bold border-b hover:bg-red-400">
-          Dashboard 
+          Dashboard
         </div>
         <nav className="p-4">
           <ul>
             <li>
-              <Link
-                to="dashboard-Home"
-                className="block py-2 px-4 rounded hover:bg-red-400"
-              >
-                Dashboard Home
-              </Link>
-              <Link
-                to="my-donation-requests"
-                className="block py-2 px-4 rounded hover:bg-red-400"
-              >
-                My-donation-requests
-              </Link>
-              <Link
-                to="Create-Donation-Request"
-                className="block py-2 px-4 rounded hover:bg-red-400"
-              >
-                Create Donation Request
-              </Link>
-              <Link
-                to="all-users"
-                className="block py-2 px-4 rounded hover:bg-red-400"
-              >
-                All Users
-              </Link>
+
+
+              {userRole === 'donor' && (
+                <>
+                  <Link
+                    to="/dashboard/dashboard-Home"
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                    Dashboard Home
+                  </Link>
+                  <Link
+                    to="/dashboard/my-donation-requests"
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                    My-donation-requests
+                  </Link>
+                  <Link
+                    to="/dashboard/Create-Donation-Request"
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                    Create Donation Request
+                  </Link>
+                </>
+              )}
+
+              {userRole === 'admin' && (
+                <>
+                  <Link to="/dashboard/all-users"
+
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                    All Users
+                  </Link>
+                  <Link to="/dashboard/all-blood-donation-requests"
+
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                    All Blood Donation Requests
+                  </Link>
+                  <Link to="/dashboard/content-management"
+
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                    Content Management
+                  </Link>
+                </>
+              )}
             </li>
 
 
             <div className='divider '></div>
-            <li className="block py-2 px-4 rounded hover:bg-red-400"><NavLink to="/">  HOME</NavLink></li>
+            <li><NavLink className="block py-2 px-4 rounded hover:bg-red-400" to="/">  HOME</NavLink></li>
 
             <li>
               <Link

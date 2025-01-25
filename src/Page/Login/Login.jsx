@@ -22,6 +22,7 @@ const Login = () => {
             console.log(user);
             Swal.fire({
                 title: "User Login Successful.",
+                icon: "success",
                 showClass: {
                   popup: `
                     animate__animated
@@ -37,7 +38,7 @@ const Login = () => {
                   `
                 }
               });
-              navigate('/');
+              navigate('/dashboard');
         })
     }
     return (

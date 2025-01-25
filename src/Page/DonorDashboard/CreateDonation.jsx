@@ -10,6 +10,10 @@ const CreateDonation = () => {
     console.log("user", user);
     const [userInfo, setUserInfo] = useState([]);
     console.log("userInfo", userInfo);
+    const [loading , setLoading] = useState(true);
+    const [error , setError] = useState(false);
+
+    console.log("loading",loading, "error", error);
     const navigate = useNavigate();
     const [districts, setDistricts] = useState([]);
     const [filteredUpazilas, setFilteredUpazilas] = useState([]);

@@ -6,11 +6,15 @@ import { useAuth } from "../../Provider/AuthProvider";
 
 const MyDonationRequests = () => {
     const [requests, setRequests] = useState([]);
-    console.log("requests", requests);
     const [statusFilter, setStatusFilter] = useState("");
+    console.log("statusFilter", statusFilter);
     const [currentPage, setCurrentPage] = useState(1); 
     const [totalPages, setTotalPages] = useState(1); 
     const { user } = useAuth();
+
+    console.log("user", user.email);  
+
+    console.log("requests", requests);
 
     useEffect(() => {
         fetchRequests();
