@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../Provider/AuthProvider";
 import useUserRole from "../hook/useUserRole";
-import { FaHome, FaUser, FaUsers } from "react-icons/fa";
+import { FaHome, FaSignOutAlt, FaUser, FaUsers } from "react-icons/fa";
 // import useUser from "../hook/useUser";
 
 // import useUser from "../hooks/useUser";
@@ -17,7 +17,17 @@ const Dashboard = () => {
 
   console.log(userRole)
 
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
 
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((error) => console.error("Logout Error:", error.message));
+  };
 
 
 
@@ -123,6 +133,16 @@ const Dashboard = () => {
                 Profile
               </Link>
             </li>
+
+            <li>
+            <button
+              onClick={handleLogOut}
+              className="flex items-center gap-1 py-2 px-4 rounded hover:bg-red-400 w-full text-left"
+            >
+              <FaSignOutAlt/>
+              Logout
+            </button>
+          </li>
 
             {/* Add more links as needed */}
           </ul>

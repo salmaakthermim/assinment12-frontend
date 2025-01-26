@@ -1,6 +1,4 @@
-import {
-    createBrowserRouter,
-  } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Home/Home";
 import Login from "../Page/Login/Login";
@@ -23,94 +21,162 @@ import AdminDashboardHome from "../Page/AdminDashboard/AdminDashboardHome";
 import VolunteerRoute from "../components/VolunteerRoute";
 import VolunteerDashboardHome from "../Page/VolunteerDashboard/VolunteerDashboardHome";
 import VolunteerAllBloodDonationRequest from "../Page/VolunteerDashboard/volunteerAllBloodDonationRequest";
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children: [
-        {
-           path: '/' ,
-           element: <Home></Home>
-        },
-        {
-          path: 'login',
-          element: <Login></Login>
-        },
-        {
-          path: 'register',
-          element:<Register></Register>
-        },
-       
-        {
-          path: 'donation-requests',
-          element:<DonationRequests></DonationRequests>
-        },
-        {
-          path:'search',
-          element: <SearchPage></SearchPage>
-        },
-      ]
-      
-    },
+import AddBlog from "../Page/AdminDashboard/AddBlog";
+import EditBlog from "../Page/AdminDashboard/EditBlog";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "register",
+        element: <Register></Register>,
+      },
 
+      {
+        path: "donation-requests",
+        element: <DonationRequests></DonationRequests>,
+      },
+      {
+        path: "search",
+        element: <SearchPage></SearchPage>,
+      },
+    ],
+  },
 
-    {
-      path: 'dashboard',
-      element: <Dashboard></Dashboard>,
-      children: [
-        {
-          path: 'dashboard-Home',
-          element: <DonorRoute> <DashboardHome />   </DonorRoute>  
-        },
-        {
-          path: 'my-donation-requests',
-          element: <DonorRoute> < MyDonationRequests /> </DonorRoute>
-        },
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "dashboard-Home",
+        element: (
+          <DonorRoute>
+            
+            <DashboardHome />
+          </DonorRoute>
+        ),
+      },
+      {
+        path: "my-donation-requests",
+        element: (
+          <DonorRoute>
+            
+            <MyDonationRequests />
+          </DonorRoute>
+        ),
+      },
 
-        {
-          path: 'donation-requests-edit/:id',
-          element:<EditDonationRequest></EditDonationRequest>
-        },
-        {
-          path: 'donation-requests-details/:id',
-          element:<DonorRoute> <DonationRequestDetails /> </DonorRoute>
-        },
-        {
-          path:'Create-Donation-Request',
-          element: <DonorRoute> <CreateDonation /> </DonorRoute>
-        },
-        {
-          path:'admin-Home',
-          element: <AdminRoute> <AdminDashboardHome />  </AdminRoute>
-        },
-        {
-          path:'all-users',
-          element: <AdminRoute> <AllUsers />  </AdminRoute>
-        },
-        {
-          path:'all-blood-donation-requests',
-          element: <AdminRoute> <AllBloodDonationRequest />  </AdminRoute>
-        },
-        {
-          path:'content-management',
-          element: <AdminRoute> <ContentManagement /> </AdminRoute>
-        },
-        {
-          path:'volunteer-Home',
-          element: <VolunteerRoute> <VolunteerDashboardHome /> </VolunteerRoute>
-        },
-        {
-          path:'volunterr-all-blood-donation-request',
-          element: <VolunteerRoute> <VolunteerAllBloodDonationRequest /> </VolunteerRoute>
-        },
+      {
+        path: "donation-requests-edit/:id",
+        element: <EditDonationRequest></EditDonationRequest>,
+      },
+      {
+        path: "donation-requests-details/:id",
+        element: (
+          <DonorRoute>
+            
+            <DonationRequestDetails />
+          </DonorRoute>
+        ),
+      },
+      {
+        path: "Create-Donation-Request",
+        element: (
+          <DonorRoute>
+            
+            <CreateDonation />
+          </DonorRoute>
+        ),
+      },
+      {
+        path: "admin-Home",
+        element: (
+          <AdminRoute>
+            
+            <AdminDashboardHome />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "all-users",
+        element: (
+          <AdminRoute>
+            
+            <AllUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "all-blood-donation-requests",
+        element: (
+          <AdminRoute>
+            
+            <AllBloodDonationRequest />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "content-management",
+        element: (
+          <AdminRoute>
+            
+            <ContentManagement />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "content-management/add-blog",
+        element: (
+          <AdminRoute>
+            
+            <AddBlog />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "content-management/edit-blog/:id",
+        element: (
+          <AdminRoute>
+            
+            <EditBlog />
+          </AdminRoute>
+        ),
+      },
 
-        {
-          path: 'profile',
-          element: <ProfilePage></ProfilePage>
-        }
-      ]
-    }
+      {
+        path: "volunteer-Home",
+        element: (
+          <VolunteerRoute>
+            
+            <VolunteerDashboardHome />
+          </VolunteerRoute>
+        ),
+      },
+      {
+        path: "volunterr-all-blood-donation-request",
+        element: (
+          <VolunteerRoute>
+            
+            <VolunteerAllBloodDonationRequest />
+          </VolunteerRoute>
+        ),
+      },
 
-  ]);
+      {
+        path: "profile",
+        element: <ProfilePage></ProfilePage>,
+      },
+    ],
+  },
+]);
 
-  export default router
+export default router;

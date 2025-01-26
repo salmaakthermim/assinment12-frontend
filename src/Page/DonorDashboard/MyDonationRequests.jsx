@@ -1,131 +1,112 @@
-import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../Provider/AuthProvider";
-
+import axios from "axios";
 
 const MyDonationRequests = () => {
+    const { user } = useAuth();
     const [requests, setRequests] = useState([]);
     const [statusFilter, setStatusFilter] = useState("");
-    console.log("statusFilter", statusFilter);
-    const [currentPage, setCurrentPage] = useState(1); 
-    const [totalPages, setTotalPages] = useState(1); 
-    const { user } = useAuth();
-
-    console.log("user", user.email);  
-
-    console.log("requests", requests);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchRequests();
-    }, [statusFilter, currentPage]);
+        fetchDonationRequests();
+    }, [statusFilter, currentPage, user.email]);
 
-    const fetchRequests = async () => {
+    const fetchDonationRequests = async () => {
         try {
-            const response = await axios.get(
-                `http://localhost:5000/my-donation-requests`,
-                {
-                    params: {
-                        email: user?.email,
-                        status: statusFilter,
-                        page: currentPage,
-                        limit: 5,
-                    },
+            setLoading(true);
+            const response = await axios.get('http://localhost:5000/my-donation-requests', {
+                params: {
+                    email: user.email,
+                    status: statusFilter,
+                    page: currentPage,
+                    limit: 10
                 }
-            );
-            setRequests(response.data.data);
+            });
+            setRequests(response.data.donations);
             setTotalPages(response.data.totalPages);
         } catch (error) {
-            console.error("Error fetching donation requests:", error);
+            console.error('Error fetching donations:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="p-6 bg-white shadow-md rounded-md">
-            <h2 className="text-xl font-bold mb-4">My Donation Requests 🩸</h2>
-            
-            {/* Filter Options */}
-            <div className="mb-4">
-                <label className="mr-2 font-medium">Filter by Status:</label>
+        <div className="p-6">
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold">My Donation Requests</h2>
                 <select
-                    className="select select-bordered"
                     value={statusFilter}
                     onChange={(e) => {
                         setStatusFilter(e.target.value);
-                        setCurrentPage(1); // Reset page when filter changes
+                        setCurrentPage(1);
                     }}
+                    className="select select-bordered"
                 >
-                    <option value="">All</option>
+                    <option value="">All Status</option>
                     <option value="pending">Pending</option>
                     <option value="inprogress">In Progress</option>
-                    <option value="done">Done</option>
+                    <option value="completed">Completed</option>
                     <option value="canceled">Canceled</option>
                 </select>
             </div>
 
-            {/* Donation Requests Table */}
-            <table className="table-auto w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr className="bg-gray-200">
-                        <th className="border border-gray-300 px-4 py-2">#</th>
-                        <th className="border border-gray-300 px-4 py-2">Recipient</th>
-                        <th className="border border-gray-300 px-4 py-2">Hospital</th>
-                        <th className="border border-gray-300 px-4 py-2">Blood Group</th>
-                        <th className="border border-gray-300 px-4 py-2">Status</th>
-                        <th className="border border-gray-300 px-4 py-2">Requested At</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {requests.length > 0 ? (
-                        requests.map((request, index) => (
-                            <tr key={request._id}>
-                                <td className="border border-gray-300 px-4 py-2">
-                                    {index + 1 + (currentPage - 1) * 5}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2">
-                                    {request.recipientName}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2">
-                                    {request.hospitalName}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2">
-                                    {request.bloodGroup}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2">
-                                    {request.donationStatus}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2">
-                                    {new Date(request.createdAt).toLocaleDateString()}
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
+            {loading ? (
+                <div>Loading...</div>
+            ) : (
+                <table className="min-w-full border">
+                    <thead>
                         <tr>
-                            <td
-                                colSpan="6"
-                                className="text-center border border-gray-300 px-4 py-2"
-                            >
-                                No donation requests found.
-                            </td>
+                            <th className="border p-2">Recipient Name</th>
+                            <th className="border p-2">Location</th>
+                            <th className="border p-2">Date</th>
+                            <th className="border p-2">Time</th>
+                            <th className="border p-2">Status</th>
+                            <th className="border p-2">Hospital Name</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {requests.map((request) => (
+                            <tr key={request._id}>
+                                <td className="border p-2">{request.recipientName}</td>
+                                <td className="border p-2">{request.recipientDistrict}, {request.recipientUpazila}</td>
+                                <td className="border p-2">{request.donationDate}</td>
+                                <td className="border p-2">{request.donationTime}</td>
+                                <td className="border p-2">
+                                    <span className={`px-2 py-1 rounded ${
+                                        request.donationStatus === 'completed' ? 'bg-green-200' :
+                                        request.donationStatus === 'inprogress' ? 'bg-yellow-200' :
+                                        request.donationStatus === 'canceled' ? 'bg-red-200' :
+                                        'bg-blue-200'
+                                    }`}>
+                                        {request.donationStatus}
+                                    </span>
+                                </td>
+                                <td className="border p-2">{request.hospitalName}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
 
-            {/* Pagination */}
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center gap-4 mt-6">
                 <button
-                    className="btn btn-sm mr-2"
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                     disabled={currentPage === 1}
-                    onClick={() => setCurrentPage((prev) => prev - 1)}
+                    className="btn btn-sm"
                 >
                     Previous
                 </button>
-                <span className="mx-2">Page {currentPage} of {totalPages}</span>
+                <span className="flex items-center">
+                    Page {currentPage} of {totalPages}
+                </span>
                 <button
-                    className="btn btn-sm"
+                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                     disabled={currentPage === totalPages}
-                    onClick={() => setCurrentPage((prev) => prev + 1)}
+                    className="btn btn-sm"
                 >
                     Next
                 </button>

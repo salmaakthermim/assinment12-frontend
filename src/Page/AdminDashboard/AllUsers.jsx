@@ -1,138 +1,187 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Modal from '../../components/Modal';
+// import Modal from '../components/Modal'; // We'll create this
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState('all');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  console.log("users",users);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showStatusModal, setShowStatusModal] = useState(false);
+  const [showRoleModal, setShowRoleModal] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(null);
+
+  // Fetch users with filters and pagination
+  const fetchUsers = async () => {
+    try {
+      const { data } = await axios.get(`http://localhost:5000/users`, {
+        params: {
+          status: filter === 'all' ? '' : filter,
+          page,
+          limit: 10
+        }
+      });
+      setUsers(data.users);
+      setTotalPages(data.totalPages);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
 
   useEffect(() => {
     fetchUsers();
   }, [filter, page]);
 
-  const fetchUsers = async () => {
+  // Handle status update
+  const handleStatusUpdate = async (newStatus) => {
     try {
-      const { data } = await axios.get("http://localhost:5000/users", {
-        params: { status: filter, page, limit: 10 },
+      await axios.patch(`http://localhost:5000/users/${selectedUser._id}/status`, {
+        status: newStatus
       });
-      setUsers(data);
-      setTotalPages(data.totalPages);
+      setShowStatusModal(false);
+      fetchUsers();
     } catch (error) {
-      console.error("Error fetching users:", error);
+      console.error('Error updating status:', error);
     }
   };
 
-  const updateUserStatus = async (id, status) => {
+  // Handle role update
+  const handleRoleUpdate = async (newRole) => {
     try {
-      await axios.patch(`http://localhost:5000/users/${id}/status`, { status });
+      await axios.patch(`http://localhost:5000/users/${selectedUser._id}/role`, {
+        role: newRole
+      });
+      setShowRoleModal(false);
       fetchUsers();
     } catch (error) {
-      console.error("Error updating user status:", error);
-    }
-  };
-
-  const updateUserRole = async (id, role) => {
-    try {
-      await axios.patch(`http://localhost:5000/users/${id}/role`, { role });
-      fetchUsers();
-    } catch (error) {
-      console.error("Error updating user role:", error);
+      console.error('Error updating role:', error);
     }
   };
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">All Users</h1>
+      {/* Filter Select */}
+      <div className="mb-4">
         <select
-          className="border p-2 rounded"
-          onChange={(e) => setFilter(e.target.value)}
           value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="border p-2 rounded"
         >
-          <option value="">All</option>
-          <option value="active">Active</option>
-          <option value="blocked">Blocked</option>
+          <option value="all">All Users</option>
+          <option value="active">Active Users</option>
+          <option value="blocked">Blocked Users</option>
         </select>
       </div>
-      <table className="table-auto w-full border">
+
+      {/* Users Table */}
+      <table className="min-w-full border">
         <thead>
           <tr>
             <th>Avatar</th>
-            <th>Email</th>
             <th>Name</th>
+            <th>Email</th>
             <th>Role</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {users?.map((user) => (
-            <tr key={user._id} className="border-t">
-              <td>
-                <img src={user.avatar} alt="Avatar" className="w-10 h-10 rounded-full" />
-              </td>
-              <td>{user.email}</td>
+          {users.map((user) => (
+            <tr key={user._id}>
+              <td><img src={user.avatar} alt="" className="w-10 h-10 rounded-full" /></td>
               <td>{user.name}</td>
+              <td>{user.email}</td>
               <td>{user.role}</td>
               <td>{user.status}</td>
-              <td>
-                <div className="relative">
-                  <button className="px-2 py-1 bg-gray-300 rounded">•••</button>
-                  <div className="absolute right-0 bg-white shadow p-2 rounded hidden">
-                    {user.status === "active" ? (
-                      <button
-                        className="block px-4 py-2 text-sm text-red-600"
-                        onClick={() => updateUserStatus(user._id, "blocked")}
-                      >
-                        Block
-                      </button>
-                    ) : (
-                      <button
-                        className="block px-4 py-2 text-sm text-green-600"
-                        onClick={() => updateUserStatus(user._id, "active")}
-                      >
-                        Unblock
-                      </button>
-                    )}
+              <td className="relative">
+                <button 
+                  onClick={() => setDropdownOpen(dropdownOpen === user._id ? null : user._id)}
+                  className="px-2"
+                >
+                  •••
+                </button>
+                
+                {dropdownOpen === user._id && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                     <button
-                      className="block px-4 py-2 text-sm text-blue-600"
-                      onClick={() => updateUserRole(user._id, "volunteer")}
+                      onClick={() => {
+                        setSelectedUser(user);
+                        setShowStatusModal(true);
+                        setDropdownOpen(null);
+                      }}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                     >
-                      Make Volunteer
+                      Edit Status
                     </button>
                     <button
-                      className="block px-4 py-2 text-sm text-yellow-600"
-                      onClick={() => updateUserRole(user._id, "admin")}
+                      onClick={() => {
+                        setSelectedUser(user);
+                        setShowRoleModal(true);
+                        setDropdownOpen(null);
+                      }}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                     >
-                      Make Admin
+                      Edit Role
                     </button>
                   </div>
-                </div>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="flex justify-between mt-4">
+
+      {/* Pagination */}
+      <div className="mt-4 flex justify-between items-center">
         <button
-          className="px-4 py-2 bg-gray-200 rounded"
+          onClick={() => setPage(p => Math.max(1, p - 1))}
           disabled={page === 1}
-          onClick={() => setPage(page - 1)}
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
         >
           Previous
         </button>
         <span>Page {page} of {totalPages}</span>
         <button
-          className="px-4 py-2 bg-gray-200 rounded"
+          onClick={() => setPage(p => Math.min(totalPages, p + 1))}
           disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
         >
           Next
         </button>
       </div>
+
+      {/* Status Modal */}
+      {showStatusModal && (
+        <Modal onClose={() => setShowStatusModal(false)}>
+          <h3 className="text-lg font-bold mb-4">Update User Status</h3>
+          <select
+            className="w-full p-2 border rounded mb-4"
+            defaultValue={selectedUser?.status}
+            onChange={(e) => handleStatusUpdate(e.target.value)}
+          >
+            <option value="active">Active</option>
+            <option value="blocked">Blocked</option>
+          </select>
+        </Modal>
+      )}
+
+      {/* Role Modal */}
+      {showRoleModal && (
+        <Modal onClose={() => setShowRoleModal(false)}>
+          <h3 className="text-lg font-bold mb-4">Update User Role</h3>
+          <select
+            className="w-full p-2 border rounded mb-4"
+            defaultValue={selectedUser?.role}
+            onChange={(e) => handleRoleUpdate(e.target.value)}
+          >
+            <option value="admin">Admin</option>
+            <option value="volunteer">Volunteer</option>
+            <option value="donor">Donor</option>
+          </select>
+        </Modal>
+      )}
     </div>
   );
 };
