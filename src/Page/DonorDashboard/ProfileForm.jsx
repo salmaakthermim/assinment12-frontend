@@ -31,7 +31,7 @@ const ProfileForm = ({ user, onSave }) => {
           <input
             type="text"
             name="name"
-            value={formData.name}
+            value={formData?.name}
             onChange={handleChange}
             disabled={!isEditing}
             className="input input-bordered w-full"
@@ -42,7 +42,7 @@ const ProfileForm = ({ user, onSave }) => {
           <input
             type="email"
             name="email"
-            value={formData.email}
+            value={formData?.email}
             disabled
             className="input input-bordered w-full bg-gray-200"
           />
@@ -52,7 +52,7 @@ const ProfileForm = ({ user, onSave }) => {
           <input
             type="text"
             name="district"
-            value={formData.district}
+            value={formData?.district}
             onChange={handleChange}
             disabled={!isEditing}
             className="input input-bordered w-full"
@@ -63,7 +63,7 @@ const ProfileForm = ({ user, onSave }) => {
           <input
             type="text"
             name="upazila"
-            value={formData.upazila}
+            value={formData?.upazila}
             onChange={handleChange}
             disabled={!isEditing}
             className="input input-bordered w-full"
@@ -74,7 +74,7 @@ const ProfileForm = ({ user, onSave }) => {
           <input
             type="text"
             name="bloodGroup"
-            value={formData.bloodGroup}
+            value={formData?.bloodGroup}
             onChange={handleChange}
             disabled={!isEditing}
             className="input input-bordered w-full"

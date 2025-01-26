@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const AllBloodDonationRequest = () => {
   const [requests, setRequests] = useState([]);
@@ -46,7 +47,7 @@ const AllBloodDonationRequest = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner></LoadingSpinner>
   if (error) return <p>{error}</p>;
 
   return (
@@ -62,35 +63,35 @@ const AllBloodDonationRequest = () => {
         <option value="done">Done</option>
         <option value="canceled">Canceled</option>
       </select>
-      <table>
+      <table  className="table-auto w-full border-collapse border border-gray-300">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Requester</th>
-            <th>Recipient</th>
-            <th>Blood Group</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th className="border border-gray-300 px-4 py-2">#</th>
+            <th className="border border-gray-300 px-4 py-2">Requester</th>
+            <th className="border border-gray-300 px-4 py-2">Recipient</th>
+            <th className="border border-gray-300 px-4 py-2">Blood Group</th>
+            <th className="border border-gray-300 px-4 py-2">Date</th>
+            <th className="border border-gray-300 px-4 py-2">Status</th>
+            <th className="border border-gray-300 px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {requests.map((req, index) => (
             <tr key={req._id}>
-              <td>{index + 1}</td>
-              <td>{req.requesterName}</td>
-              <td>{req.recipientName}</td>
-              <td>{req.bloodGroup}</td>
-              <td>{req.donationDate}</td>
-              <td>{req.donationStatus}</td>
-              <td>
-                <button onClick={() => updateStatus(req._id, 'done')}>
+              <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
+              <td className="border border-gray-300 px-4 py-2">{req.requesterName}</td>
+              <td className="border border-gray-300 px-4 py-2">{req.recipientName}</td>
+              <td className="border border-gray-300 px-4 py-2">{req.bloodGroup}</td>
+              <td className="border border-gray-300 px-4 py-2">{req.donationDate}</td>
+              <td className="border border-gray-300 px-4 py-2">{req.donationStatus}</td>
+              <td className='flex gap-2 border border-gray-300 px-4 py-2'>
+                <button  className="btn btn-sm btn-info" onClick={() => updateStatus(req._id, 'done')}>
                   Mark as Done
                 </button>
-                <button onClick={() => updateStatus(req._id, 'canceled')}>
+                <button className="btn btn-sm btn-warning" onClick={() => updateStatus(req._id, 'canceled')}>
                   Cancel
                 </button>
-                <button onClick={() => deleteRequest(req._id)}>Delete</button>
+                <button  className="btn btn-sm btn-error" onClick={() => deleteRequest(req._id)}>Delete</button>
               </td>
             </tr>
           ))}

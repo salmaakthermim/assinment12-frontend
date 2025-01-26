@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../Provider/AuthProvider";
 import useUserRole from "../hook/useUserRole";
+import { FaHome, FaUser, FaUsers } from "react-icons/fa";
 // import useUser from "../hook/useUser";
 
 // import useUser from "../hooks/useUser";
@@ -62,14 +63,16 @@ const Dashboard = () => {
                 <>
                   <Link to="/dashboard/admin-Home"
 
-                    className="block py-2 px-4 rounded hover:bg-red-400"
+                    className=" py-2 px-4 rounded flex items-center gap-1 hover:bg-red-400"
                   >
+                    <FaHome/>
                    Admin Home
                   </Link>
                   <Link to="/dashboard/all-users"
 
-                    className="block py-2 px-4 rounded hover:bg-red-400"
+                    className=" py-2 px-4 rounded flex items-center gap-1 hover:bg-red-400"
                   >
+                    <FaUsers/>
                     All Users
                   </Link>
                   <Link to="/dashboard/all-blood-donation-requests"
@@ -109,13 +112,14 @@ const Dashboard = () => {
 
 
             <div className='divider '></div>
-            <li><NavLink className="block py-2 px-4 rounded hover:bg-red-400" to="/">  HOME</NavLink></li>
+            <li><NavLink className="flex items-center gap-1 py-2 px-4 rounded hover:bg-red-400" to="/"> <FaHome/>  HOME</NavLink></li>
 
             <li>
               <Link
                 to="profile"
-                className="block py-2 px-4 rounded hover:bg-red-400"
+                className="flex items-center gap-1 py-2 px-4 rounded hover:bg-red-400"
               >
+                <FaUser/>
                 Profile
               </Link>
             </li>

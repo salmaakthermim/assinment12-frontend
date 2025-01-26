@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const DonationRequestDetails = () => {
   const { id } = useParams(); 
@@ -28,7 +29,7 @@ const DonationRequestDetails = () => {
   }, [id]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
   if (error) {

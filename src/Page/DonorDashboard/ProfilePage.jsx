@@ -1,28 +1,25 @@
 import React from "react";
 import ProfileForm from "./ProfileForm";
-import { useAuth } from "../../Provider/AuthProvider";
+import { useContext } from "react";
+import  { AuthContext } from "../../Provider/AuthProvider";
+import axios from "axios";
+import Swal from "sweetalert2";
+// import { useAuth } from "../../Provider/AuthProvider";
 
 
 const ProfilePage = () => {
-    const {user} = useAuth();
-  const users = {
-    name: "John Doe",
-    email: user.email,
-    district: "Dhaka",
-    upazila: "Mirpur",
-    bloodGroup: "A+",
-  };
+  const { userProfile, updateUserProfile } = useContext(AuthContext);
 
   const handleSave = (updatedData) => {
-    console.log("Updated Data:", updatedData);
-    // Save the updated data to the database here
+    // Update user profile in the backend
+    axios.put(`http://localhost:5000/user-profile/${userProfile.email}`, updatedData).then((res) => {
+      if (res.data.success) {
+        Swal.fire("Success", "Profile updated successfully", "success");
+      }
+    });
   };
 
-  return (
-    <div>
-      <ProfileForm user={users} onSave={handleSave} />
-    </div>
-  );
+  return <ProfileForm user={userProfile} onSave={handleSave} />;
 };
 
 export default ProfilePage;

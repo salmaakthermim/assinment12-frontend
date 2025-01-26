@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 
 const VolunteerAllBloodDonationRequest = () => {
@@ -41,7 +42,7 @@ const VolunteerAllBloodDonationRequest = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner></LoadingSpinner>;
   if (error) return <p>{error}</p>;
 
   return (

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import useAxiosPublic from "../../../hook/UseAxiosPublic";
 import Swal from "sweetalert2";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const Register = () => {
   const { register, reset, formState: { errors } } = useForm();
@@ -138,7 +139,7 @@ const Register = () => {
   };
 
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner></LoadingSpinner>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (

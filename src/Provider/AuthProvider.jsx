@@ -1,10 +1,12 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../firbase/firbase.config';
+import axios from 'axios';
 
 
 export const AuthContext = createContext(null)
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
+    const  [userProfile, setUserProfile] = useState({});
     const [user, setUser] = useState(null);
     console.log("user tt", user)
     const [loading, setLoading] = useState(true);
@@ -45,6 +47,14 @@ const AuthProvider = ({children}) => {
         }
     }, [])
 
+    useEffect(() => {
+        if (user?.email) {
+          axios.get(`http://localhost:5000/user-profile?email=${user.email}`).then((res) => {
+            setUserProfile(res.data); // Store user profile in context
+          });
+        }
+      }, [user]);
+
 
     const authInfo = {
         user,
@@ -54,7 +64,8 @@ const AuthProvider = ({children}) => {
         singIn,
         logOut,
         updatUserProfile,
-        singOutUser
+        singOutUser,
+        userProfile
        
 
 
@@ -68,6 +79,8 @@ const AuthProvider = ({children}) => {
 };
 export const useAuth = () => {
     return useContext(AuthContext);
+    
   };
+  
 
 export default AuthProvider;
