@@ -23,6 +23,10 @@ import VolunteerDashboardHome from "../Page/VolunteerDashboard/VolunteerDashboar
 import VolunteerAllBloodDonationRequest from "../Page/VolunteerDashboard/volunteerAllBloodDonationRequest";
 import AddBlog from "../Page/AdminDashboard/AddBlog";
 import EditBlog from "../Page/AdminDashboard/EditBlog";
+import VolunterrContentManagement from "../Page/VolunteerDashboard/VolunterrContentManagement";
+import AddBlogs from "../Page/VolunteerDashboard/AddBlogs";
+import PrivateRoute from "./PrivateRoute";
+import DonationDetails from "../components/DonationDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,6 +50,10 @@ const router = createBrowserRouter([
         element: <DonationRequests></DonationRequests>,
       },
       {
+        path: "donation-details/:id",
+        element: <DonationDetails></DonationDetails>,
+      },
+      {
         path: "search",
         element: <SearchPage></SearchPage>,
       },
@@ -54,7 +62,7 @@ const router = createBrowserRouter([
 
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       {
         path: "dashboard-Home",
@@ -167,6 +175,24 @@ const router = createBrowserRouter([
           <VolunteerRoute>
             
             <VolunteerAllBloodDonationRequest />
+          </VolunteerRoute>
+        ),
+      },
+      {
+        path: "volunterr-content-management",
+        element: (
+          <VolunteerRoute>
+            
+            <VolunterrContentManagement />
+          </VolunteerRoute>
+        ),
+      },
+      {
+        path: "volunterr-content-management/add-blogs",
+        element: (
+          <VolunteerRoute>
+            
+            <AddBlogs></AddBlogs>
           </VolunteerRoute>
         ),
       },

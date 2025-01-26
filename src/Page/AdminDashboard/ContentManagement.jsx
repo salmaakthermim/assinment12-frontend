@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 // import { useHistory } from 'react-router-dom';
 
 const ContentManagement = () => {
@@ -62,13 +63,14 @@ const ContentManagement = () => {
     } catch (err) {
       alert("Failed to delete blog", err);
     }
+    toast("blogs delete sucesfull!")
   };
 
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Content Management</h1>
-        <button 
+        <button
           onClick={() => navigate('/dashboard/content-management/add-blog')}
           className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
         >
@@ -76,8 +78,8 @@ const ContentManagement = () => {
         </button>
       </div>
 
-      <select 
-        value={statusFilter} 
+      <select
+        value={statusFilter}
         onChange={(e) => setStatusFilter(e.target.value)}
         className="mb-4 p-2 border rounded"
       >
@@ -112,27 +114,27 @@ const ContentManagement = () => {
                 <td className="border p-2">{blog.createdBy}</td>
                 <td className="border p-2">
                   {blog.status === 'draft' ? (
-                    <button 
+                    <button
                       onClick={() => handlePublish(blog._id)}
                       className="px-3 py-1 bg-blue-500 text-white rounded mr-2"
                     >
                       Publish
                     </button>
                   ) : (
-                    <button 
+                    <button
                       onClick={() => handleUnpublish(blog._id)}
                       className="px-3 py-1 bg-yellow-500 text-white rounded mr-2"
                     >
                       Unpublish
                     </button>
                   )}
-                    <button 
-    onClick={() => navigate(`/dashboard/content-management/edit-blog/${blog._id}`)}
-    className="px-3 py-1 bg-green-500 text-white rounded mr-2"
-  >
-    Edit
-  </button>
-                  <button 
+                  <button
+                    onClick={() => navigate(`/dashboard/content-management/edit-blog/${blog._id}`)}
+                    className="px-3 py-1 bg-green-500 text-white rounded mr-2"
+                  >
+                    Edit
+                  </button>
+                  <button
                     onClick={() => handleDelete(blog._id)}
                     className="px-3 py-1 bg-red-500 text-white rounded"
                   >

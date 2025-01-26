@@ -39,7 +39,7 @@ const EditDonationRequest = () => {
     e.preventDefault();
     try {
       await axios.patch(`http://localhost:5000/donation-requests/${id}`, formData);
-      navigate('/dashboard'); // Redirect back to the dashboard after updating
+      navigate('/dashboard'); 
     } catch (error) {
       console.error('Error updating donation request:', error);
     }

@@ -113,6 +113,12 @@ const Dashboard = () => {
                   >
                   All Blood Donation Request
                   </Link>
+                  <Link to="/dashboard/volunterr-content-management"
+
+                    className="block py-2 px-4 rounded hover:bg-red-400"
+                  >
+                  Content Management
+                  </Link>
                 
                 
                 

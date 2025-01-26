@@ -129,7 +129,7 @@ const Register = () => {
                   showConfirmButton: false,
                   timer: 1500,
                 });
-                navigate("/dashboard");
+                navigate("/login");
               }
             });
           })
