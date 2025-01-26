@@ -12,7 +12,7 @@ const DonationRequests = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/pending',);
+        const response = await axios.get('https://assignment-12-server-two-hazel.vercel.app/pending',);
         setRequests(response.data);
       } catch (error) {
         if (error.response?.status === 401) {

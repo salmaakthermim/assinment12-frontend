@@ -21,7 +21,7 @@ const EditDonationRequest = () => {
     // Fetch existing donation request data
     const fetchRequest = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/donation-requests/${id}`);
+        const response = await axios.get(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`);
         setFormData(response.data);
       } catch (error) {
         console.error('Error fetching donation request:', error);
@@ -38,7 +38,7 @@ const EditDonationRequest = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`http://localhost:5000/donation-requests/${id}`, formData);
+      await axios.patch(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`, formData);
       navigate('/dashboard'); 
     } catch (error) {
       console.error('Error updating donation request:', error);
