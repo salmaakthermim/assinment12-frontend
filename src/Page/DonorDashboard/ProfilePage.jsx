@@ -12,7 +12,7 @@ const ProfilePage = () => {
 
   const handleSave = (updatedData) => {
     // Update user profile in the backend
-    axios.put(`https://assignment-12-server-two-hazel.vercel.app/user-profile/${userProfile.email}`, updatedData).then((res) => {
+    axios.put(`http://localhost:5000/user-profile/${userProfile.email}`, updatedData).then((res) => {
       if (res.data.success) {
         Swal.fire("Success", "Profile updated successfully", "success");
       }

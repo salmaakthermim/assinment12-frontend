@@ -56,7 +56,7 @@ const Navbar = () => {
               </li>
 
               {/* User Avatar with Dropdown */}
-              <li className="relative">
+              <li className="relative dropdown-menu">
                 <button
                   onClick={() => setDropdownOpen(!isDropdownOpen)} // Toggle dropdown
                   className="flex items-center space-x-2 focus:outline-none"

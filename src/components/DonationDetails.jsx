@@ -15,14 +15,14 @@ const DonationDetails = () => {
   useEffect(() => {
     // Fetch donation request details by ID
     axios
-      .get(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`)
+      .get(`http://localhost:5000/donation-requests/${id}`)
       .then((response) => setRequestDetails(response.data))
       .catch((error) => console.error("Error fetching request details:", error));
   }, [id]);
 
   const handleConfirmDonation = () => {
     axios
-      .patch(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}/status`, { status: "inprogress" })
+      .patch(`http://localhost:5000/donation-requests/${id}/status`, { status: "inprogress" })
       .then(() => {
         alert("Donation confirmed successfully!");
         setIsModalOpen(false);
