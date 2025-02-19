@@ -8,14 +8,20 @@ const Footer = () => {
         {/* Logo and Description */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
           <div className="text-center sm:text-left">
-            <h1 className="text-3xl font-semibold">DonateLife</h1>
-            <p className="text-gray-400 mt-2">Together, we make a difference in lives every day. Join the cause and help save lives.</p>
+            <h1 className="text-3xl font-semibold ml-96 ">DonateLife</h1>
+            <p className="text-gray-400 mt-2 ml-72 ">Together, we make a difference in lives every day. Join the cause and help save lives.</p>
           </div>
         </div>
 
+        <img
+            src="https://static.vecteezy.com/system/resources/thumbnails/053/320/428/small/blood-donor-month-a-drop-of-blood-created-with-the-help-of-technology-photo.jpg"
+            alt="Logo"
+            className="w-10 h-10 ml-32 rounded-full"
+          />
+
         {/* Quick Links */}
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-          <div>
+          <div className='ml-28'>
             <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
             <ul>
               <li><a href="/" className="hover:text-blue-500">Home</a></li>

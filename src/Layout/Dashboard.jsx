@@ -202,7 +202,7 @@ const Dashboard = () => {
     <div className="flex h-screen">
       {/* Sidebar */}
       <div className={`bg-blue-400 text-white w-64 lg:static fixed h-full transition-transform transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 z-40`}>
-        <div className="p-4 text-2xl font-bold border-b">Dashboard</div>
+        <div className="p-4 text-2xl font-bold border-b">Dashboard </div>
         <nav className="p-4">
           <ul>
             {userRole === "donor" && (
@@ -237,7 +237,10 @@ const Dashboard = () => {
           <button className="lg:hidden text-gray-600 text-2xl" onClick={() => setSidebarOpen(!isSidebarOpen)}>{isSidebarOpen ? <FaTimes /> : <FaBars />}</button>
           <h1 className="text-lg font-bold">Dashboard</h1>
         </div>
-        <div className="p-4 overflow-auto flex-1"><Outlet /></div>
+        
+        <div className="p-4 overflow-auto flex-1"><Outlet />
+     
+        </div>
       </div>
     </div>
   );
