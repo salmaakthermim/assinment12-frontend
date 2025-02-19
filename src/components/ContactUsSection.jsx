@@ -19,18 +19,18 @@ const ContactUsSection = () => {
   };
 
   return (
-    <section className="bg-gray-50 py-12">
+    <section className=" py-12">
       <div className="max-w-screen-xl mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-center text-gray-900 mb-6">Contact Us</h2>
-        <p className="text-center text-gray-600 mb-12">We’d love to hear from you! Reach out for any questions or assistance.</p>
+        <h2 className="text-3xl font-semibold text-center  mb-6">Contact Us</h2>
+        <p className="text-center  mb-12">We’d love to hear from you! Reach out for any questions or assistance.</p>
 
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
           {/* Contact Form */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Send Us a Message</h3>
+          <div className=" p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold  mb-4">Send Us a Message</h3>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="name" className="block text-gray-600">Name</label>
+                <label htmlFor="name" className="block ">Name</label>
                 <input
                   type="text"
                   name="name"
@@ -42,7 +42,7 @@ const ContactUsSection = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-600">Email</label>
+                <label htmlFor="email" className="block ">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -54,7 +54,7 @@ const ContactUsSection = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="message" className="block text-gray-600">Message</label>
+                <label htmlFor="message" className="block ">Message</label>
                 <textarea
                   name="message"
                   id="message"
@@ -73,9 +73,9 @@ const ContactUsSection = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Contact Information</h3>
-            <p className="text-gray-600 mb-4">If you need immediate assistance, feel free to contact us directly at:</p>
+          <div className=" p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
+            <p className=" mb-4">If you need immediate assistance, feel free to contact us directly at:</p>
             <p className="text-lg text-blue-600">+1 (123) 456-7890</p>
           </div>
         </div>
