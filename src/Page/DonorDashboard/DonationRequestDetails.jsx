@@ -15,7 +15,7 @@ const DonationRequestDetails = () => {
     // Fetch donation request details
     const fetchRequestDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/donation-requests/${id}`);
+        const response = await axios.get(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`);
         setRequestDetails(response.data);
         setLoading(false);
       } catch (err) {

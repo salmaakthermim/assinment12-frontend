@@ -92,7 +92,7 @@ const CreateDonation = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/user/${user?.email}`);
+                const response = await axios.get(`https://assignment-12-server-two-hazel.vercel.app/user/${user?.email}`);
                 console.log("response", response);
                 setUserInfo(response.data.data);
             } catch (error) {
@@ -125,7 +125,7 @@ const CreateDonation = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/donation-requests', requestData, {
+            const response = await axios.post('https://assignment-12-server-two-hazel.vercel.app/donation-requests', requestData, {
 
             });
 

@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         if (user?.email) {
-          axios.get(`http://localhost:5000/user-profile?email=${user?.email}`).then((res) => {
+          axios.get(`https://assignment-12-server-two-hazel.vercel.app/user-profile?email=${user?.email}`).then((res) => {
             setUserProfile(res.data); 
           });
         }
