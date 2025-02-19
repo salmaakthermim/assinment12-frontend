@@ -3,61 +3,47 @@ import React from 'react';
 const VolunteerSection = () => {
   const volunteers = [
     {
-      name: "Alexander GARY",
+      name: "Nora Khaypsie",
       role: "Co-Founder",
-      imageUrl: "	https://templates.bwlthemes.com/blood_donation/v_2/images/team_9.jpg", // Replace with the actual image URL
+      image: "https://cdn.create.vista.com/api/media/small/80152446/stock-photo-smiling-female-doctor-holding-medical-records", // Replace with actual image URL
     },
     {
-      name: "Melissa Munoz",
-      role: "Founder",
-      imageUrl: "	https://templates.bwlthemes.com/blood_donation/v_2/images/team_6.jpg", // Replace with the actual image URL
+      name: "Alex Joshan Deo",
+      role: "Co-Founder",
+      image: "https://media.istockphoto.com/id/1346124900/photo/confident-successful-mature-doctor-at-hospital.jpg?s=612x612&w=0&k=20&c=S93n5iTDVG3_kJ9euNNUKVl9pgXTOdVQcI_oDGG-QlE=",
     },
     {
-      name: "John Abraham",
-      role: "Manager",
-      imageUrl: "https://templates.bwlthemes.com/blood_donation/v_2/images/team_7.jpg", // Replace with the actual image URL
+      name: "Joshan Khaypsia",
+      role: "Co-Founder",
+      image: "https://static.vecteezy.com/system/resources/thumbnails/026/375/249/small_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
     },
   ];
 
   return (
-    <div style={{
-       
-        backgroundImage: "url(https://templates.bwlthemes.com/blood_donation/v_2/images/team_feat_bg.jpg)",
-      }}  className="py-20 object-cover ">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-white">OUR VOLUNTEERS</h2>
-        <p className="mt-4 text-white text-5xl font-bold">The volunteers who give their time and talents help to fulfill our mission.</p>
+    <section className="py-12  ">
+     <div className='w-11/12'>
+     <div className="text-center">
+        <h3 className="text-red-500 uppercase font-bold">Team Members</h3>
+        <h2 className="text-3xl font-bold">Meet Volunteers</h2>
       </div>
-      <div className="flex flex-wrap justify-center">
+      <div className="flex justify-center gap-8 mt-8">
         {volunteers.map((volunteer, index) => (
-          <div key={index} className="m-4 p-6 bg-white rounded-lg shadow-md w-80 text-center">
+          <div
+            key={index}
+            className="bg-white shadow-md rounded-lg p-4 text-center w-64"
+          >
             <img
-              className="  object-cover rounded-full mb-4"
-              src={volunteer.imageUrl}
+              src={volunteer.image}
               alt={volunteer.name}
+              className="w-full h-48 object-cover rounded-md"
             />
-            <h3 className="text-xl font-semibold">{volunteer.name}</h3>
+            <h3 className="text-lg font-semibold mt-4">{volunteer.name}</h3>
             <p className="text-gray-500">{volunteer.role}</p>
-            <div className="mt-4 flex justify-center">
-              <a href="#" className="mx-2 text-blue-500 hover:underline">
-                LinkedIn
-              </a>
-              <a href="#" className="mx-2 text-blue-500 hover:underline">
-                Portfolio
-              </a>
-            </div>
           </div>
         ))}
       </div>
-      <div className="text-center mt-10">
-        <a
-          href="#"
-          className="bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 transition"
-        >
-          BECOME A VOLUNTEER
-        </a>
-      </div>
-    </div>
+     </div>
+    </section>
   );
 };
 

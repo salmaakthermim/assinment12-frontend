@@ -25,11 +25,12 @@ const Register = () => {
     bloodGroup: "",
     district: "",
     upazila: "",
+    photoURL: "" ,
     password: "",
     confirmPassword: "",
   });
 
-  console.log("data check",formData);
+  console.log("data check", formData);
 
   useEffect(() => {
     fetch("/upazilas.json")
@@ -113,12 +114,13 @@ const Register = () => {
               upazila: formData.upazila,
               bloodGroup: formData.bloodGroup,
               avatar: avatarPreview,
+              photoURL: formData.photoURL,
               password: formData.password,
             };
 
             console.log("User Info:", userInfo);
             axiosPublic.post("/register", userInfo).then((res) => {
-              console.log("User added to the database", res);  
+              console.log("User added to the database", res);
               if (res.data.userId) {
                 console.log("User added to the database");
                 reset();
@@ -262,6 +264,18 @@ const Register = () => {
 
         </div>
 
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Photo URL</span>
+          </label>
+          <input
+            type="text"
+            name="photoURL"
+            placeholder="Photo URL (optional)"
+            className="input input-bordered"
+          />
+        </div>
+
 
         {/* Password */}
         <div className="mb-4">
@@ -297,7 +311,7 @@ const Register = () => {
           Register
         </button>
       </form>
-      <p className='px-10'><small>Already have an account <Link to="/login">login</Link> </small></p>
+      <p className='px-10'><small>Already have an account <Link to="/login" className="text-red-400">login</Link> </small></p>
     </div>
   );
 };

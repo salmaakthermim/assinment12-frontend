@@ -45,66 +45,66 @@ import React from 'react';
 
 const FeaturedSection = () => {
   return (
-    <section className="bg-gray-50 py-12">
+    <section className="py-12">
       <div className="max-w-screen-xl mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-center text-gray-900 mb-6">Meet Our Featured Donors</h2>
-        <p className="text-center text-gray-600 mb-12">Discover the difference your donation can make!</p>
+        <h2 className="text-3xl font-semibold text-center mb-6">Meet Our Featured Donors</h2>
+        <p className="text-center  mb-12">Discover the difference your donation can make!</p>
 
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Featured Donor Card 1 */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className=" border rounded-lg shadow-lg overflow-hidden">
             <img src="https://i.ibb.co.com/1sgHmTT/images-2.jpg" alt="Donor Avatar" className="w-full h-32 object-cover" />
             <div className="p-6">
-              <h3 className="text-xl font-semibold text-gray-800">John Doe</h3>
-              <p className="text-sm text-gray-600">Blood Group: A+</p>
-              <p className="text-gray-700 mt-4">John has been a loyal donor for over 5 years, helping save countless lives with his blood donations. His contributions have made a huge impact on local hospitals and emergency services.</p>
+              <h3 className="text-xl font-semibold ">John Doe</h3>
+              <p className="text-sm ">Blood Group: A+</p>
+              <p className=" mt-4">John has been a loyal donor for over 5 years, helping save countless lives with his blood donations. His contributions have made a huge impact on local hospitals and emergency services.</p>
               <button className="mt-4 text-white bg-blue-500 p-2 rounded-full">Donate Now</button>
             </div>
           </div>
 
           {/* Featured Donor Card 2 */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className=" border rounded-lg shadow-lg overflow-hidden">
             <img src="https://templates.bwlthemes.com/blood_donation/v_2/images/blog_thumb_2.jpg" alt="Donor Avatar" className="w-full h-32 object-cover" />
             <div className="p-6">
-              <h3 className="text-xl font-semibold text-gray-800">Jane Smith</h3>
-              <p className="text-sm text-gray-600">Blood Group: O-</p>
-              <p className="text-gray-700 mt-4">Jane's generous donations have been lifesaving for many in need. She is dedicated to regularly donating, making a tangible difference in the community.</p>
+              <h3 className="text-xl font-semibold ">Jane Smith</h3>
+              <p className="text-sm ">Blood Group: O-</p>
+              <p className=" mt-4">Jane's generous donations have been lifesaving for many in need. She is dedicated to regularly donating, making a tangible difference in the community.</p>
               <button className="mt-4 text-white bg-blue-500 p-2 rounded-full">Donate Now</button>
             </div>
           </div>
 
           {/* Featured Donor Card 3 */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="border rounded-lg shadow-lg overflow-hidden">
             <img src="https://templates.bwlthemes.com/blood_donation/v_2/images/blog_thumb_1.jpg" alt="Donor Avatar" className="w-full h-32 object-cover" />
             <div className="p-6">
-              <h3 className="text-xl font-semibold text-gray-800">Alex Brown</h3>
-              <p className="text-sm text-gray-600">Blood Group: AB+</p>
-              <p className="text-gray-700 mt-4">Alex’s commitment to regular donations helps improve the overall health of his community, supporting local hospitals and individuals in need.</p>
+              <h3 className="text-xl font-semibold ">Alex Brown</h3>
+              <p className="text-sm ">Blood Group: AB+</p>
+              <p className=" mt-4">Alex’s commitment to regular donations helps improve the overall health of his community, supporting local hospitals and individuals in need.</p>
               <button className="mt-4 text-white bg-blue-500 p-2 rounded-full">Donate Now</button>
             </div>
           </div>
         </div>
 
         <div className="mt-12 text-center">
-          <h3 className="text-2xl font-semibold text-gray-800">See the Impact of Your Donation</h3>
-          <p className="text-gray-600 mb-4">These are just some of the lives you've helped change.</p>
+          <h3 className="text-2xl font-semibold ">See the Impact of Your Donation</h3>
+          <p className=" mb-4">These are just some of the lives you've helped change.</p>
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Impact Story 1 */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h4 className="text-xl font-semibold text-gray-800">Saving a Life</h4>
-              <p className="text-gray-700 mt-4">“Thanks to the generous blood donations, I was able to receive life-saving treatment during my surgery. I’m forever grateful!”</p>
+            <div className=" rounded-lg shadow-lg p-6">
+              <h4 className="text-xl font-semibold ">Saving a Life</h4>
+              <p className=" mt-4">“Thanks to the generous blood donations, I was able to receive life-saving treatment during my surgery. I’m forever grateful!”</p>
             </div>
 
             {/* Impact Story 2 */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h4 className="text-xl font-semibold text-gray-800">Helping the Community</h4>
-              <p className="text-gray-700 mt-4">“Your donations helped our hospital provide essential care to those in need during an emergency. You truly make a difference!”</p>
+            <div className=" rounded-lg shadow-lg p-6">
+              <h4 className="text-xl font-semibold ">Helping the Community</h4>
+              <p className=" mt-4">“Your donations helped our hospital provide essential care to those in need during an emergency. You truly make a difference!”</p>
             </div>
 
             {/* Impact Story 3 */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h4 className="text-xl font-semibold text-gray-800">Giving Hope</h4>
-              <p className="text-gray-700 mt-4">“My family was struggling during a tough time, and your donations allowed us to get the support we needed. Thank you!”</p>
+            <div className=" rounded-lg shadow-lg p-6">
+              <h4 className="text-xl font-semibold ">Giving Hope</h4>
+              <p className="mt-4">“My family was struggling during a tough time, and your donations allowed us to get the support we needed. Thank you!”</p>
             </div>
           </div>
         </div>

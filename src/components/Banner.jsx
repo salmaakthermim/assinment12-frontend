@@ -8,7 +8,7 @@ const Banner = () => {
   return (
     <div  style={{
         backgroundImage: "url(https://i.ibb.co.com/rbgPvpm/blood-donation-guidelines-hero.jpg)",
-      }}  className="relative  text-white py-16 px-6">
+      }}  className="relative mt-20  text-white py-16 px-6">
     {/* Background */}
     <div className="absolute inset-0 bg-red-300 opacity-30"></div>
 

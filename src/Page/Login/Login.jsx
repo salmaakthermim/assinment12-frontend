@@ -66,7 +66,7 @@ const Login = () => {
                                 <input  type="submit" className="btn btn-primary" value="Login" />
                             </div>
                         </form>
-                        <p className='px-5 py-7'><small>New Hear? <Link to="/register">Create an accoutn</Link> </small></p>
+                        <p className='px-5 py-7'><small>New Hear? <Link to="/register" className='text-green-400'>Create an accoutn</Link> </small></p>
                         
                     </div>
                     <div className="text-center lg:text-left w-96">
