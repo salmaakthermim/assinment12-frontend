@@ -26,7 +26,7 @@ const VolunteerSection = () => {
         <h3 className="text-red-500 uppercase font-bold">Team Members</h3>
         <h2 className="text-3xl font-bold">Meet Volunteers</h2>
       </div>
-      <div className="flex justify-center gap-8 mt-8">
+      <div className="lg:flex justify-center gap-8 mt-8">
         {volunteers.map((volunteer, index) => (
           <div
             key={index}

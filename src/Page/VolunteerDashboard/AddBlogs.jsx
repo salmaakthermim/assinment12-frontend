@@ -39,8 +39,8 @@ const AddBlogs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://assignment-12-server-two-hazel.vercel.app/content-management/blog', formData);
-      navigate('/dashboard/content-management');
+      await axios.post('http://localhost:5000/content-management/blog', formData);
+      navigate('/dashboard/volunterr-content-management');
     } catch (error) {
       console.error('Failed to create blog:', error);
     }

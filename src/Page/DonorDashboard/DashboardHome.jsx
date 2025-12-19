@@ -16,7 +16,7 @@ console.log("user fffe", user)
     const fetchRecentRequests = async () => {
       try {
         const response = await axios.get(
-          `https://assignment-12-server-two-hazel.vercel.app/recent-donation-requests?email=${user?.email}`
+          `http://localhost:5000/recent-donation-requests?email=${user?.email}`
         );
         setDonationRequests(response.data);
       } catch (error) {
@@ -29,7 +29,7 @@ console.log("user fffe", user)
 
   const handleStatusUpdate = async (id, status) => {
     try {
-      await axios.patch(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}/status`, { status });
+      await axios.patch(`http://localhost:5000/donation-requests/${id}/status`, { status });
       setDonationRequests((prev) =>
         prev.map((req) => (req._id === id ? { ...req, donationStatus: status } : req))
       );
@@ -41,7 +41,7 @@ console.log("user fffe", user)
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this request?')) {
       try {
-        await axios.delete(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`);
+        await axios.delete(`http://localhost:5000/donation-requests/${id}`);
         setDonationRequests((prev) => prev.filter((req) => req._id !== id));
       } catch (error) {
         console.error(error);

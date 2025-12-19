@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../../Provider/AuthProvider";
 
 
 
 const EditDonationRequest = () => {
   const { id } = useParams();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     recipientName: '',
@@ -18,18 +20,41 @@ const EditDonationRequest = () => {
   console.log('formData', formData)
 
   useEffect(() => {
-    // Fetch existing donation request data
     const fetchRequest = async () => {
       try {
-        const response = await axios.get(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`);
-        setFormData(response.data);
+        const response = await axios.get(
+          `http://localhost:5000/donation-requests/${id}`
+        );
+
+        // ✅ এখানে response আছে
+        console.log("FULL RESPONSE 👉", response.data);
+
+        setFormData({
+          recipientName: response.data.recipientName || "",
+          recipientDistrict:
+            response.data.
+              recipientDistrict ||
+            response.data.district ||
+            "",
+          recipientUpazila:
+            response.data.recipientUpazila ||
+            response.data.upazila ||
+            "",
+          donationDate: response.data.donationDate
+            ? response.data.donationDate.slice(0, 10)
+            : "",
+          donationTime: response.data.donationTime || "",
+          bloodGroup: response.data.bloodGroup || "",
+        });
       } catch (error) {
-        console.error('Error fetching donation request:', error);
+        console.error("Error fetching donation request:", error);
       }
     };
 
     fetchRequest();
   }, [id]);
+
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,12 +62,16 @@ const EditDonationRequest = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.patch(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`, formData);
-      navigate('/dashboard'); 
-    } catch (error) {
-      console.error('Error updating donation request:', error);
-    }
+    await axios.patch(
+      `http://localhost:5000/donation-requests/${id}`,
+      {
+        ...formData,
+        requesterEmail: user.email, // 👈 must
+      }
+    );
+
+    navigate('/dashboard');
+
   };
 
   return (

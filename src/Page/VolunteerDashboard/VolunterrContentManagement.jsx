@@ -18,7 +18,7 @@ const VolunterrContentManagement = () => {
         setLoading(true);
         try {
             const { data } = await axios.get(
-                `https://assignment-12-server-two-hazel.vercel.app/content-management/blogs?status=${statusFilter}`
+                `http://localhost:5000/content-management/blogs?status=${statusFilter}`
             );
             setBlogs(data);
         } catch (err) {
@@ -35,18 +35,18 @@ const VolunterrContentManagement = () => {
     const handlePublish = async (id) => {
         try {
             await axios.patch(
-                `https://assignment-12-server-two-hazel.vercel.app/content-management/blogs/${id}/publish`
+                `http://localhost:5000/content-management/blogs/${id}/publish`
             );
             fetchBlogs();
         } catch (err) {
-            alert("Failed to publish blog", err);
+            toast("Failed to publish blog", err);
         }
     };
 
     const handleUnpublish = async (id) => {
         try {
             await axios.patch(
-                `https://assignment-12-server-two-hazel.vercel.app/content-management/blogs/${id}/unpublish`
+                `http://localhost:5000/content-management/blogs/${id}/unpublish`
             );
             fetchBlogs();
         } catch (err) {
@@ -57,7 +57,7 @@ const VolunterrContentManagement = () => {
     const handleDelete = async (id) => {
         try {
             await axios.delete(
-                `https://assignment-12-server-two-hazel.vercel.app/content-management/blogs/${id}`
+                `http://localhost:5000/content-management/blogs/${id}`
             );
             fetchBlogs();
         } catch (err) {
@@ -128,12 +128,12 @@ const VolunterrContentManagement = () => {
                                             Unpublish
                                         </button>
                                     )}
-                                    <button
-                                        onClick={() => navigate(`/dashboard/content-management/edit-blog/${blog._id}`)}
+                                    {/* <button
+                                        onClick={() => navigate(`/dashboard/volunterr-content-management/edit-blog/${blog._id}`)}
                                         className="px-3 py-1 bg-green-500 text-white rounded mr-2"
                                     >
                                         Edit
-                                    </button>
+                                    </button> */}
                                     <button
                                         onClick={() => handleDelete(blog._id)}
                                         className="px-3 py-1 bg-red-500 text-white rounded"

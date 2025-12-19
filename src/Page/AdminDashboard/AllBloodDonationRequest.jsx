@@ -14,7 +14,7 @@ const AllBloodDonationRequest = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `https://assignment-12-server-two-hazel.vercel.app/all-donation-requests?page=${page}&status=${statusFilter}`
+        `http://localhost:5000/all-donation-requests?page=${page}&status=${statusFilter}`
       );
       setRequests(data.requests);
       setTotalPages(data.totalPages);
@@ -31,7 +31,7 @@ const AllBloodDonationRequest = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}/status`, { status });
+      await axios.patch(`http://localhost:5000/donation-requests/${id}/status`, { status });
       fetchRequests();
     } catch (err) {
       alert('Failed to update status');
@@ -40,7 +40,7 @@ const AllBloodDonationRequest = () => {
 
   const deleteRequest = async (id) => {
     try {
-      await axios.delete(`https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`);
+      await axios.delete(`http://localhost:5000/donation-requests/${id}`);
       fetchRequests();
     } catch (err) {
       alert('Failed to delete request');
@@ -52,7 +52,7 @@ const AllBloodDonationRequest = () => {
 
   return (
     <div>
-      <h1>All Blood Donation Requests</h1>
+      <h1 className='text-4xl font-bold mb-4'>All Blood Donation Requests</h1>
       <select
         value={statusFilter}
         onChange={(e) => setStatusFilter(e.target.value)}

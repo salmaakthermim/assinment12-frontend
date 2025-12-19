@@ -10,10 +10,10 @@ const CreateDonation = () => {
     console.log("user", user);
     const [userInfo, setUserInfo] = useState([]);
     console.log("userInfo", userInfo);
-    const [loading , setLoading] = useState(true);
-    const [error , setError] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
-    console.log("loading",loading, "error", error);
+    console.log("loading", loading, "error", error);
     const navigate = useNavigate();
     const [districts, setDistricts] = useState([]);
     const [filteredUpazilas, setFilteredUpazilas] = useState([]);
@@ -35,7 +35,7 @@ const CreateDonation = () => {
         fetch("/upazilas.json")
             .then((res) => res.json())
             .then((data) => {
-                console.log("Fetched upazilas:", data); 
+                console.log("Fetched upazilas:", data);
                 setUpazilas(data);
             })
             .catch((err) => console.error("Error fetching upazilas:", err));
@@ -67,32 +67,39 @@ const CreateDonation = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        
-        });
-        console.log('name', name,value)
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+
         if (name === "recipientDistrict") {
             const selectedDistrict = districts.find((d) => d.name === value);
-            console.log("Selected District:", selectedDistrict); 
+
             if (selectedDistrict) {
                 const filtered = upazilas.filter(
                     (u) => u.district_id === selectedDistrict.id.toString()
                 );
-                console.log("Filtered Upazilas:", filtered); 
                 setFilteredUpazilas(filtered);
             } else {
                 setFilteredUpazilas([]);
             }
-            setFormData({ ...formData, district: value, upazila: "" });
+
+            // ✅ ONLY reset upazila
+            setFormData((prev) => ({
+                ...prev,
+                recipientDistrict: value,
+                recipientUpazila: "",
+            }));
         }
     };
+
+
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`https://assignment-12-server-two-hazel.vercel.app/user/${user?.email}`);
+                const response = await axios.get(`http://localhost:5000/user/${user?.email}`);
                 console.log("response", response);
                 setUserInfo(response.data.data);
             } catch (error) {
@@ -125,7 +132,7 @@ const CreateDonation = () => {
         };
 
         try {
-            const response = await axios.post('https://assignment-12-server-two-hazel.vercel.app/donation-requests', requestData, {
+            const response = await axios.post('http://localhost:5000/donation-requests', requestData, {
 
             });
 
@@ -134,8 +141,8 @@ const CreateDonation = () => {
                     title: "Donation request created successfully!",
                     icon: "success",
                     draggable: true
-                  });
-                navigate('/dashboard');
+                });
+                navigate('/dashboard/dashboard-Home');
             }
         } catch (error) {
             console.error(error);
@@ -164,21 +171,19 @@ const CreateDonation = () => {
                     <label className="block font-medium">Recipient District</label>
                     <select
                         name="recipientDistrict"
-                        value={formData.district}
-                        
+                        value={formData.recipientDistrict}
                         onChange={handleChange}
                         className="select select-bordered w-full"
-                        >
-
-                        <option value="" disabled>
-                            Select District
-                        </option>
+                    >
+                        <option value="" disabled>Select District</option>
                         {districts.map((district) => (
                             <option key={district.id} value={district.name}>
                                 {district.name}
                             </option>
                         ))}
                     </select>
+
+
                 </div>
                 <div>
                     <label className="block font-medium">Recipient Upazila</label>
@@ -187,14 +192,9 @@ const CreateDonation = () => {
                         value={formData.recipientUpazila}
                         onChange={handleChange}
                         className="select select-bordered w-full"
-                      
                     >
-                        <option value="" >
-                            Select Upazila
-                        </option>
-                        <option value="" >
-                        Brahmanpara
-                        </option>
+                        <option value="">Select Upazila</option>
+
                         {filteredUpazilas.length > 0 ? (
                             filteredUpazilas.map((upazila) => (
                                 <option key={upazila.id} value={upazila.name}>
@@ -202,11 +202,10 @@ const CreateDonation = () => {
                                 </option>
                             ))
                         ) : (
-                            <option value="" disabled>
-                                No Upazilas Found
-                            </option>
+                            <option value="" disabled>No Upazilas Found</option>
                         )}
                     </select>
+
 
                 </div>
                 <div>
