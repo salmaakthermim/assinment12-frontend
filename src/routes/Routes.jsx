@@ -27,6 +27,8 @@ import VolunterrContentManagement from "../Page/VolunteerDashboard/VolunterrCont
 import AddBlogs from "../Page/VolunteerDashboard/AddBlogs";
 import PrivateRoute from "./PrivateRoute";
 import DonationDetails from "../components/DonationDetails";
+import DashboardOverview from "../Page/DashboardOverview";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,6 +66,10 @@ const router = createBrowserRouter([
     path: "dashboard",
     element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
+      {
+        path: "",
+        element: <DashboardOverview />,
+      },
       {
         path: "dashboard-Home",
         element: (

@@ -24,12 +24,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-pink-100 shadow-md z-30">
+    <nav className="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 z-30 transition-all duration-300">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <img
-            src="https://static.vecteezy.com/system/resources/thumbnails/053/320/428/small/blood-donor-month-a-drop-of-blood-created-with-the-help-of-technology-photo.jpg"
+            src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?q=80&w=300&auto=format&fit=crop"
             alt="Logo"
             className="w-10 h-10 rounded-full"
           />
@@ -39,26 +39,26 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex space-x-6 text-gray-600">
+        <ul className="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
           <li>
-            <a href="/" className="hover:text-gray-800">
+            <a href="/" className="hover:text-red-500 transition-colors duration-200">
               Home
             </a>
           </li>
           <li>
-            <a href="/donation-requests" className="hover:text-gray-800">
+            <a href="/donation-requests" className="hover:text-red-500 transition-colors duration-200">
               Donation Requests
             </a>
           </li>
           <li>
-            <a href="/blog" className="hover:text-gray-800">
+            <a href="/blog" className="hover:text-red-500 transition-colors duration-200">
               Blog
             </a>
           </li>
 
           {user && (
             <li>
-              <a href="/funding-links" className="hover:text-gray-800">
+              <a href="/funding-links" className="hover:text-red-500 transition-colors duration-200">
                 Funding Links
               </a>
             </li>
@@ -78,13 +78,13 @@ const Navbar = () => {
 
               {isDropdownOpen && (
                 <ul
-                  className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-md"
+                  className="absolute right-0 mt-3 w-48 bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden py-1 transition-all duration-200 transform origin-top-right"
                   style={{ zIndex: 30 }}
                 >
                   <li>
                     <a
                       href="/dashboard"
-                      className="block px-4 py-2 text-gray-600 hover:bg-gray-100"
+                      className="block px-4 py-2.5 text-gray-700 font-medium hover:bg-gray-50 hover:text-red-500 transition-colors"
                     >
                       Dashboard
                     </a>
@@ -92,7 +92,7 @@ const Navbar = () => {
                   <li>
                     <button
                       onClick={handleLogOut}
-                      className="w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100"
+                      className="w-full text-left px-4 py-2.5 text-red-500 font-medium hover:bg-red-50 transition-colors"
                     >
                       Logout
                     </button>
@@ -102,7 +102,7 @@ const Navbar = () => {
             </li>
           ) : (
             <li>
-              <a href="/login" className="hover:text-gray-800">
+              <a href="/login" className="px-5 py-2 md:px-6 md:py-2.5 bg-red-500 text-white font-medium rounded-full hover:bg-red-600 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                 Login
               </a>
             </li>
@@ -119,55 +119,53 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-pink-50 shadow-md">
-          <ul className="flex flex-col items-center py-4 space-y-4 text-gray-600">
+      <div className={`md:hidden absolute w-full left-0 bg-white border-b border-gray-100 shadow-xl transition-all duration-300 ease-in-out ${isMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"}`}>
+        <ul className="flex flex-col items-center py-6 space-y-5 text-gray-700 font-medium">
+          <li>
+            <a href="/" className="hover:text-red-500 transition-colors" onClick={() => setMenuOpen(false)}>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/donation-requests" className="hover:text-red-500 transition-colors" onClick={() => setMenuOpen(false)}>
+              Donation Requests
+            </a>
+          </li>
+          <li>
+            <a href="/blog" className="hover:text-red-500 transition-colors" onClick={() => setMenuOpen(false)}>
+              Blog
+            </a>
+          </li>
+          {user && (
             <li>
-              <a href="/" className="hover:text-gray-800" onClick={() => setMenuOpen(false)}>
-                Home
+              <a href="/funding-links" className="hover:text-red-500 transition-colors" onClick={() => setMenuOpen(false)}>
+                Funding Links
               </a>
             </li>
-            <li>
-              <a href="/donation-requests" className="hover:text-gray-800" onClick={() => setMenuOpen(false)}>
-                Donation Requests
-              </a>
-            </li>
-            <li>
-              <a href="/blog" className="hover:text-gray-800" onClick={() => setMenuOpen(false)}>
-                Blog
-              </a>
-            </li>
-            {user && (
-              <li>
-                <a href="/funding-links" className="hover:text-gray-800" onClick={() => setMenuOpen(false)}>
-                  Funding Links
-                </a>
-              </li>
-            )}
+          )}
 
-            {user ? (
-              <>
-                <li>
-                  <a href="/dashboard" className="hover:text-gray-800" onClick={() => setMenuOpen(false)}>
-                    Dashboard
-                  </a>
-                </li>
-                <li>
-                  <button onClick={handleLogOut} className="text-gray-600 hover:text-gray-800">
-                    Logout
-                  </button>
-                </li>
-              </>
-            ) : (
+          {user ? (
+            <>
               <li>
-                <a href="/login" className="hover:text-gray-800" onClick={() => setMenuOpen(false)}>
-                  Login
+                <a href="/dashboard" className="hover:text-red-500 transition-colors" onClick={() => setMenuOpen(false)}>
+                  Dashboard
                 </a>
               </li>
-            )}
-          </ul>
-        </div>
-      )}
+              <li>
+                <button onClick={handleLogOut} className="text-red-500 font-semibold hover:text-red-600 transition-colors">
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <a href="/login" className="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-md" onClick={() => setMenuOpen(false)}>
+                Login
+              </a>
+            </li>
+          )}
+        </ul>
+      </div>
     </nav>
   );
 };

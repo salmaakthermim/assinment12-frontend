@@ -40,7 +40,16 @@ const Login = () => {
               });
               navigate('/dashboard');
         })
+        .catch(error => {
+            console.error("Login error:", error);
+            Swal.fire({
+                title: "Login Failed",
+                text: "Invalid email or password. Please try again.",
+                icon: "error"
+            });
+        });
     }
+
     return (
         <div className='flex-1 flex gap-20 ml-56'>
             <div className="card bg-base-100 md:w-1/2 max-w-sm mt-6 mb-6  ">
