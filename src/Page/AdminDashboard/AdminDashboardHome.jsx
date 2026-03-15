@@ -16,7 +16,7 @@ const AdminDashboardHome = () => {
         // Fetch dashboard statistics from the server
         const fetchStatistics = async () => {
             try {
-                const response = await fetch('http://localhost:5000/dashboard-statistics'); // Replace with your API endpoint
+                const response = await fetch('https://assignment-12-server-two-hazel.vercel.app/dashboard-statistics'); // Replace with your API endpoint
                 const data = await response.json();
                 setStatistics(data);
             } catch (error) {

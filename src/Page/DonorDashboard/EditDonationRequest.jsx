@@ -23,7 +23,7 @@ const EditDonationRequest = () => {
     const fetchRequest = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/donation-requests/${id}`
+          `https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`
         );
 
         // ✅ এখানে response আছে
@@ -63,7 +63,7 @@ const EditDonationRequest = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.patch(
-      `http://localhost:5000/donation-requests/${id}`,
+      `https://assignment-12-server-two-hazel.vercel.app/donation-requests/${id}`,
       {
         ...formData,
         requesterEmail: user.email, // 👈 must
